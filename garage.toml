@@ -1,0 +1,32 @@
+metadata_dir = "/var/lib/garage/meta"
+data_dir = "/var/lib/garage/data"
+db_engine = "sqlite"
+
+replication_factor = 1
+
+rpc_bind_addr = "[::]:3901"
+# Set rpc_public_addr to "<node-ip-or-hostname>:3901" if this node ever joins
+# a multi-node Garage cluster. Left unset for single-node use.
+
+[s3_api]
+s3_region = "garage"
+api_bind_addr = "[::]:3900"
+advertise_endpoint = "https://garage-s3.internal.ghomelab.top"
+advertise_path_style = true
+
+[s3_web]
+bind_addr = "[::]:3902"
+# Vhost-style bucket websites (e.g. "my-bucket.web.internal.ghomelab.top")
+# require wildcard DNS + a wildcard Traefik route, which aren't set up yet.
+# Path-style access and the exact `garage-web.internal.ghomelab.top` host
+# (matching a bucket literally named "garage-web") work regardless.
+root_domain = ".web.internal.ghomelab.top"
+index = "index.html"
+
+[admin]
+api_bind_addr = "[::]:3903"
+
+# rpc_secret and admin_token are intentionally NOT set here - they are
+# supplied at runtime via the GARAGE_RPC_SECRET and GARAGE_ADMIN_TOKEN
+# environment variables (both natively supported by Garage), so secrets
+# never get baked into the image.
