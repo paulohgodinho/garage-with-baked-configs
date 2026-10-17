@@ -12,7 +12,7 @@ rpc_bind_addr = "[::]:3901"
 s3_region = "garage"
 api_bind_addr = "[::]:3900"
 advertise_endpoint = "https://garage-s3.internal.ghomelab.top"
-advertise_path_style = true
+# advertise_path_style defaults to true since root_domain is unset above.
 
 [s3_web]
 bind_addr = "[::]:3902"
@@ -20,8 +20,9 @@ bind_addr = "[::]:3902"
 # require wildcard DNS + a wildcard Traefik route, which aren't set up yet.
 # Path-style access and the exact `garage-web.internal.ghomelab.top` host
 # (matching a bucket literally named "garage-web") work regardless.
+# root_domain itself IS mandatory as soon as this [s3_web] section exists.
 root_domain = ".web.internal.ghomelab.top"
-index = "index.html"
+# index defaults to "index.html", left unset.
 
 [admin]
 api_bind_addr = "[::]:3903"
